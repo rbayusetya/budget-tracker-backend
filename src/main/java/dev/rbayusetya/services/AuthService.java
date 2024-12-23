@@ -30,15 +30,36 @@ public class AuthService {
      */
     @Transactional
     public User register(User user) {
-        if (userRepository.emailExists(user.email)) {
-            throw new RuntimeException("Email already registered");
-        }
-
-        // Hash the password before saving
-        user.password = hashPassword(user.password);
-        userRepository.persist(user);
+       if(validateEmail(user)){
+           // Hash the password before saving
+           user.password = hashPassword(user.password);
+           userRepository.persist(user);
+       }
 
         return user;
+    }
+
+    @Transactional
+    public User updateData(User user){
+        if(userRepository.findByEmail(user.email).isPresent()){
+            User existingUser = userRepository.findByEmail(user.email).get();
+            existingUser.userId = user.userId;
+            existingUser.password = hashPassword(user.password);
+            existingUser.budgetList = user.budgetList;
+            existingUser.firstName = user.firstName;
+            existingUser.lastName = user.lastName;
+            existingUser.fullName = user.fullName;
+        }
+        return user;
+    }
+
+    private boolean validateEmail(User user){
+        boolean result = false;
+        if(!userRepository.emailExists(user.email)){
+            result = true;
+            throw new RuntimeException("Email already registered");
+        }
+        return result;
     }
 
     /**

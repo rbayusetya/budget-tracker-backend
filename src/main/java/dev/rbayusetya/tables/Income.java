@@ -23,5 +23,4 @@ public class Income {
     public Long date;
     @Column
     public String description;
-
 }
