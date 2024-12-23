@@ -12,7 +12,7 @@ import jakarta.persistence.Table;
 public class Budget {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    public String budgetId;
+    public Long budgetId; //using long because will be auto-incremented
     @Column(nullable = false)
     public String userId;
     @Column(nullable = false)

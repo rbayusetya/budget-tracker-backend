@@ -15,8 +15,8 @@ import java.util.List;
 @Table(name="users")
 public class User {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    public long userId;
+    @GeneratedValue(strategy = GenerationType.UUID)
+    public String userId;
     @Column(nullable = false, unique = true)
     public String email;
     @Column(nullable = false)
@@ -28,7 +28,7 @@ public class User {
     @Column(nullable = false)
     public String fullName;
     @Column(nullable = false)
-    public long createdAt;
+    public Long createdAt;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     public List<Budget> budgetList;

@@ -3,6 +3,7 @@ package dev.rbayusetya.tables;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
@@ -10,8 +11,8 @@ import jakarta.persistence.Table;
 @Table(name="incomes")
 public class Income {
     @Id
-    @GeneratedValue
-    public String incomeId;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    public Long incomeId; //using Long because will be auto-incremented.
     @Column(nullable = false)
     public String budgetId;
     @Column
@@ -19,7 +20,7 @@ public class Income {
     @Column(nullable = false)
     public double amount;
     @Column(nullable = false)
-    public long date;
+    public Long date;
     @Column
     public String description;
 
